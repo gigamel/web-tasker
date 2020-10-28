@@ -1,0 +1,9 @@
+.header,
+.content {
+  padding: 25px 0;
+}
+
+.sign-in-form {
+  max-width: 300px;
+  margin: auto;
+}
