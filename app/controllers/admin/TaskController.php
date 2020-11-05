@@ -53,7 +53,7 @@ class TaskController extends Controller
             $task = $model->getById($id);
         }
         
-        if (is_null($task)) {
+        if ($task === null) {
             $this->redirect(UrlManager::link('admin/task/list'));
         } else {
             if (isset($_POST['confirm'])) {
@@ -84,21 +84,20 @@ class TaskController extends Controller
             $task = $model->getById($id);
         }
 
-        if (is_null($task)) {
+        if ($task === null) {
             $this->redirect(UrlManager::link('admin/task/list'));
         } else {
-            $user = \Application::$app->user;
-            
             if (isset($_POST['save'])) {
                 $task->loadFromArray([
-                    'userId' => $_POST['userId'],
                     'description' => $_POST['description'],
                     'status' => $_POST['status']
                 ]);
                 
                 if (empty($task->description)) {
                     $this->pushError('the task is empty');
-                } else {
+                }
+                
+                if (!$this->hasErrors()) {
                     $task->update();
                     
                     $_SESSION['message'] = 'task updated successfully';
@@ -108,15 +107,12 @@ class TaskController extends Controller
                 }
             }
             
-            $users = $user->getList();
-            
             $statuses = $task->statuses;
             
             $this->setTitle('Edit task #' . $task->id);
 
             $this->render('admin/task/edit', [
                 'task' => $task,
-                'users' => $users,
                 'statuses' => $statuses
             ]);
         }

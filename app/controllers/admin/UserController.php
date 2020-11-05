@@ -50,7 +50,7 @@ class UserController extends Controller
             $user = $model->getById($id);
         }
         
-        if (is_null($user)) {
+        if ($user === null) {
             $this->redirect(UrlManager::link('admin/user/list'));
         } else {
             if (isset($_POST['confirm'])) {
@@ -81,7 +81,7 @@ class UserController extends Controller
             $user = $model->getById($id);
         }
 
-        if (is_null($user)) {
+        if ($user === null) {
             $this->redirect(UrlManager::link('admin/user/list'));
         } else {
             if (isset($_POST['save'])) {
