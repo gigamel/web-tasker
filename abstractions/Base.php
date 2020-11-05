@@ -8,7 +8,6 @@ abstract class Base
      */
     public function __get($name)
     {
-        die("The property <strong>{$name}</strong> does not exist.");
     }
 
     /**
@@ -17,6 +16,5 @@ abstract class Base
      */
     public function __call($name, $arguments)
     {
-        die("The method <strong>{$name}</strong> does not exist.");
     }
 }

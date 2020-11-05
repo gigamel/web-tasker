@@ -1,5 +1,6 @@
 <?php
 use libs\UrlManager;
+use libs\Html;
 ?>
 <div class="content">
   <div class="container">
@@ -20,6 +21,7 @@ use libs\UrlManager;
               Task #<?= $task->id ?>
               <?php if (\Application::$app->user->isAuthorized()): ?>
               <a href="<?= UrlManager::link("admin/task/edit&id={$task->id}") ?>">[edit]</a>
+              <a href="<?= UrlManager::link("admin/task/delete&id={$task->id}") ?>">[delete]</a>
               <?php endif; ?>
             </div>
           </div>
@@ -27,13 +29,13 @@ use libs\UrlManager;
         <div class="row">
           <div class="col-md-4">
             <div class="p-3">
-              <p><strong>User:</strong> <?= $task->login ?></p>
+              <p><strong>User:</strong> <?= $task->userName ?></p>
               <p><strong>E-mail:</strong> <?= $task->email ?></p>
               <p><strong>Status:</strong> <?= ((int) $task->status == 0) ? '<span class="text-success">done</span>' : '<span class="text-warning">on work</span>' ?></p>
             </div>
           </div>
           <div class="col-md-8">
-            <div class="p-3 text-muted"><?= htmlspecialchars($task->description) ?></div>
+            <div class="p-3 text-muted"><?= Html::encode($task->description) ?></div>
           </div>
         </div>
         <?php endforeach; ?>

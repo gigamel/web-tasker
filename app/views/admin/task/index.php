@@ -24,7 +24,7 @@ use libs\UrlManager;
               <?php foreach ($tasks as $task): ?>
               <tr>
                 <td>#<?= $task->id ?></td>
-                <td><?= $task->login ?></td>
+                <td><?= $task->userName ?></td>
                 <td><?= isset($statuses[$task->status]) ? $statuses[$task->status] : '' ?></td>
                 <td><?= $task->email ?></td>
                 <td>

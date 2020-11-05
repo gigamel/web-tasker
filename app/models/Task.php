@@ -21,11 +21,6 @@ class Task extends Model
     public $id;
 
     /**
-     * @var string $login
-     */
-    public $login;
-
-    /**
      * @var int $status
      */
     public $status = 1;
@@ -39,9 +34,9 @@ class Task extends Model
     ];
 
     /**
-     * @var int $userId
+     * @var string $userName
      */
-    public $userId;
+    public $userName;
 
     /**
      * @return int
@@ -52,11 +47,11 @@ class Task extends Model
         
         if (!is_null($this->db)) {
             $sth = $this->db->prepare('INSERT INTO ' . $this->tableName
-                . ' (description, userId, status) VALUES'
-                . ' (:description, :userId, :status)');
+                . ' (description, userName, email) VALUES'
+                . ' (:description, :userName, :email)');
             $sth->bindValue(':description', $this->description, \PDO::PARAM_STR);
-            $sth->bindValue(':userId', $this->userId, \PDO::PARAM_INT);
-            $sth->bindValue(':status', $this->status, \PDO::PARAM_INT);
+            $sth->bindValue(':userName', $this->userName, \PDO::PARAM_STR);
+            $sth->bindValue(':email', $this->email, \PDO::PARAM_STR);
             $sth->execute();
             
             return $this->db->lastInsertId();
@@ -88,11 +83,9 @@ class Task extends Model
             
             if (!is_null($this->db)) {
                 $sth = $this->db->prepare('UPDATE ' . $this->tableName . ' SET'
-                    . ' description = :description, userId = :userId,'
-                    . ' status = :status'
+                    . ' description = :description, status = :status'
                     . ' WHERE id = :id');
                 $sth->bindValue(':description', $this->description, \PDO::PARAM_STR);
-                $sth->bindValue(':userId', $this->userId, \PDO::PARAM_INT);
                 $sth->bindValue(':status', $this->status, \PDO::PARAM_INT);
                 $sth->bindValue(':id', $id, \PDO::PARAM_INT);
                 $sth->execute();

@@ -25,9 +25,8 @@ class TaskController extends Controller
             'query' => 'per-page'
         ]);
   
-        $tasks = $model->joinWith('user', NULL, 'ON task.userId = user.id',
-            'task.*, user.login, user.email', 'ORDER BY id DESC',
-            $pagination->limit, $pagination->offset);
+        $tasks = $model->getList($pagination->limit, $pagination->offset,
+            'ORDER BY id DESC');
         
         $statuses = $model->statuses;
 
@@ -121,47 +120,6 @@ class TaskController extends Controller
                 'statuses' => $statuses
             ]);
         }
-    }
-
-    public function actionNew()
-    {
-        $task = new Task();
-        
-        $user = \Application::$app->user;
-        
-        $users = $user->getList();
-        
-        if (isset($_POST['save'])) {
-            $task->loadFromArray([
-                'userId' => $_POST['userId'],
-                'description' => $_POST['description'],
-                'status' => $_POST['status']
-            ]);
-            
-            if (empty($task->description)) {
-                $this->pushError('the task is empty');
-            } else {
-                $taskId = $task->insert();
-                if ((int) $taskId > 0) {
-                    $_SESSION['message'] = 'task added successfully';
-                    
-                    $this->redirect(UrlManager::link("admin/task/edit"
-                        . "&id={$taskId}"));
-                } else {
-                    $this->pushError('error when adding the new task');
-                }
-            }
-        }
-        
-        $statuses = $task->statuses;
-        
-        $this->setTitle('New task');
-
-        $this->render('admin/task/new', [
-            'task' => $task,
-            'users' => $users,
-            'statuses' => $statuses
-        ]);
     }
 
     public function __construct()

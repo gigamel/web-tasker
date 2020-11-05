@@ -21,9 +21,7 @@ use libs\UrlManager;
 <?php endif; ?>
 <div class="row">
   <div class="col-12">
-    <form action="<?= UrlManager::link() ?>" method="POST"
-      autocomplete="off">
-      <input type="hidden" name="status" value="<?= $task->status ?>">
+    <form action="<?= UrlManager::link() ?>" method="POST" autocomplete="off">
       <div class="row">
         <div class="col-md-9">
           <div class="form-group">
@@ -33,11 +31,12 @@ use libs\UrlManager;
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <select name="status" class="form-control">
-              <?php foreach ($statuses as $id => $status): ?>
-              <option value="<?= $id ?>"<?php if ($id == $task->status): ?> selected<?php endif; ?>><?= $status ?></option>
-              <?php endforeach; ?>
-            </select>
+            <input type="text" name="userName" class="form-control"
+              value="<?= $task->userName ?>" placeholder="Username" required>
+          </div>
+          <div class="form-group">
+            <input type="email" name="email" class="form-control"
+              value="<?= $task->email ?>" placeholder="E-mail" required>
           </div>
         </div>
       </div>

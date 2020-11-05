@@ -5,7 +5,7 @@ use libs\UrlManager;
   <div class="container">
     <div class="row">
       <div class="col-12 text-right">
-        <a href="/" class="btn btn-outline-primary">To site</a>
+        <a href="/" class="btn btn-outline-primary">Homepage</a>
         <?php if (!UrlManager::isPage('admin/task/list')): ?>
         <a href="<?= UrlManager::link('admin/task/list') ?>"
           class="btn btn-outline-primary">Task manager</a>
